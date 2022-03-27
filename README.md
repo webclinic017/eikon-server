@@ -43,7 +43,7 @@ pip install -r requirements.txt
 ```
 
 - Duplicate `template.env` to `.env`.
-- Edit the configuration file `.env` and set your own environment variables values.
+- Edit the configuration file `.env` and set your own environment variables values replacing the `{{ XXX }}` placeholders.
 
 
 ## TLS encryption (optional)
