@@ -102,7 +102,8 @@ def handler_get_data(  # pylint: disable=too-many-arguments
     field_name: boolean, optional
         Define if column headers are filled with field name or display names.
 
-        If True value, field names will ube used as column headers. Otherwise, the full display name will be used.
+        If True value, field names will ube used as column headers.
+        Otherwise, the full display name will be used.
 
         Default: False
 
@@ -119,7 +120,8 @@ def handler_get_data(  # pylint: disable=too-many-arguments
     Returns
     -------
         json
-            With error and data fields. Data contains fields in columns and instruments as row index.
+            With error and data fields.
+            Data contains fields in columns and instruments as row index.
     """
     if not authorized:
         return {"data": None, "error": "Not autorized"}
@@ -135,8 +137,8 @@ def handler_get_data(  # pylint: disable=too-many-arguments
             raw_output=raw_output,
             debug=debug,
         )
-    except Exception as error:  # pylint: disable=broad-except
-        return {"data": None, "error": {"code": -1, "message": str(error)}}
+    except Exception as exception:  # pylint: disable=broad-except
+        return {"data": None, "error": {"code": -1, "message": str(exception)}}
     if data and len(data) == 2:
         data, _ = data
     return with_error(data)
@@ -202,7 +204,8 @@ def handler_news_headlines(  # pylint: disable=too-many-arguments
             - Index               : Timestamp of the publication time
             - version_created     : Date of the latest update on the news
             - text                : Text of the Headline
-            - story_id            : Identifier to be used to retrieve the full story using the get_news_story function
+            - story_id            : Identifier to be used to retrieve the full story using the
+                                    get_news_story function
             - source_code         : Second news identifier
     """
     if not authorized:
@@ -216,8 +219,8 @@ def handler_news_headlines(  # pylint: disable=too-many-arguments
             raw_output=raw_output,
             debug=debug,
         )
-    except Exception as error:  # pylint: disable=broad-except
-        return {"data": None, "error": {"code": -1, "message": str(error)}}
+    except Exception as exception:  # pylint: disable=broad-except
+        return {"data": None, "error": {"code": -1, "message": str(exception)}}
     return with_error(data)
 
 
@@ -234,7 +237,8 @@ def handler_news_story(
     Parameters
     ----------
     story_id: string
-        The story id is a field you will find in every headline you retrieved with the function get_news_headlines.
+        The story id is a field you will find in every headline you retrieved
+        with the function get_news_headlines.
 
     raw_output: boolean
         Set this parameter to True to get the data in json format
@@ -250,8 +254,8 @@ def handler_news_story(
         return {"data": None, "error": "Not autorized"}
     try:
         data = ek.get_news_story(story_id=story_id, raw_output=raw_output, debug=debug)
-    except Exception as error:  # pylint: disable=broad-except
-        return {"data": None, "error": {"code": -1, "message": str(error)}}
+    except Exception as exception:  # pylint: disable=broad-except
+        return {"data": None, "error": {"code": -1, "message": str(exception)}}
     return with_error(data)
 
 
@@ -318,8 +322,8 @@ def handler_symbology(  # pylint: disable=too-many-arguments
             debug=debug,
             best_match=best_match,
         )
-    except Exception as error:  # pylint: disable=broad-except
-        return {"data": None, "error": {"code": -1, "message": str(error)}}
+    except Exception as exception:  # pylint: disable=broad-except
+        return {"data": None, "error": {"code": -1, "message": str(exception)}}
     return with_error(data)
 
 
@@ -351,7 +355,8 @@ def handler_timeseries(  # pylint: disable=too-many-arguments
         string format is: '%Y-%m-%dT%H:%M:%S'. e.g. '2016-01-20T15:04:05'.
         datetime.timedelta is negative number of day relative to datetime.now().
         Default: datetime.now() + timedelta(-100)
-        You can use the helper function get_date_from_today, please see the usage in the examples section
+        You can use the helper function get_date_from_today, please see the usage
+        in the examples section
 
     end_date: string or datetime.datetime or datetime.timedelta
         End date and time of the historical range.
@@ -363,11 +368,13 @@ def handler_timeseries(  # pylint: disable=too-many-arguments
 
         Default: datetime.now()
 
-        You can use the helper function get_date_from_today, please see the usage in the examples section
+        You can use the helper function get_date_from_today, please see the usage
+        in the examples section
 
     interval: string
         Data interval.
-        Possible values: 'tick', 'minute', 'hour', 'daily', 'weekly', 'monthly', 'quarterly', 'yearly' (Default 'daily')
+        Possible values: 'tick', 'minute', 'hour', 'daily', 'weekly', 'monthly',
+            'quarterly', 'yearly' (Default 'daily')
         Default: 'daily'
 
     fields: string or list of strings
@@ -385,9 +392,11 @@ def handler_timeseries(  # pylint: disable=too-many-arguments
         Possible values: 'adjusted', 'unadjusted'
 
     normalize: boolean, optional
-        If set to True, the function will return a normalized data frame with the following columns 'Date','Security','Field'.
+        If set to True, the function will return a normalized data frame with the
+        following columns 'Date','Security','Field'.
 
-        If the value of this parameter is False the returned data frame shape will depend on the number of rics and the number of fields in the response.
+        If the value of this parameter is False the returned data frame shape will
+        depend on the number of rics and the number of fields in the response.
 
         There are three different shapes:
             - One ric and many fields
@@ -396,11 +405,14 @@ def handler_timeseries(  # pylint: disable=too-many-arguments
 
         Default: False
 
-        Remark: This parameter has a less precedence than the parameter rawOutput i.e. if rawOutput is set to True, the returned data will be the raw data and this parameter will be ignored
+        Remark: This parameter has a less precedence than the parameter rawOutput i.e.
+        if rawOutput is set to True, the returned data will be the raw data and this parameter
+        will be ignored
 
     raw_output: boolean, optional
         Set this parameter to True to get the data in json format
-        if set to False, the function will return a data frame which shape is defined by the parameter normalize
+        if set to False, the function will return a data frame which shape is defined by the
+        parameter normalize
         Default: False
 
     debug: boolean, optional
@@ -424,6 +436,6 @@ def handler_timeseries(  # pylint: disable=too-many-arguments
             raw_output=raw_output,
             debug=debug,
         )
-    except Exception as error:  # pylint: disable=broad-except
-        return {"data": None, "error": {"code": -1, "message": str(error)}}
+    except Exception as exception:  # pylint: disable=broad-except
+        return {"data": None, "error": {"code": -1, "message": str(exception)}}
     return with_error(data)
